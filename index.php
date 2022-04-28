@@ -16,13 +16,15 @@ if (isset($_SESSION['beeArray'])) {
         $hive->reset();
     }
 } else {
-    define('QUEENS', 1);
-    define('WORKERS', 5);
-    define('DRONES', 8);
-    
+    define('BEES', [
+        'queens' => 1,
+        'workers' => 5,
+        'drones' => 8
+    ]);
+
     $hive = new Hive();
 
-    $hive->setHive(QUEENS, WORKERS, DRONES);
+    $hive->setHive(...BEES);
 }
 
 $beeArray = $hive->getHive();
