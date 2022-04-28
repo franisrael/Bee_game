@@ -12,11 +12,27 @@ class Hive
 {
     protected array $hiveArray = [];
 
-    public function reset()
+    public function __construct(int $queens, int $workers, int $drones)
+    {
+        for ($i = 0; $i < $queens; $i++) {
+            $this->hiveArray[0] = new QueenBee(100, 8);
+        }
+        for ($i = $queens; $i < $workers + $queens; $i++) {
+            $this->hiveArray[$i] = new WorkerBee(70, 10);
+        }
+        for ($i = $queens + $workers; $i < $drones + $workers + $queens; $i++) {
+            $this->hiveArray[$i] = new DroneBee(50, 12);
+        }
+    }
+
+    public function reset(): bool
     {
         foreach ($this->hiveArray as &$bee) {
-            $bee->restartLife();
+            if (!$bee->restartLife()) {
+                return false;
+            }
         }
+        return true;
     }
 
     public function hasGameFinished(): bool
@@ -40,19 +56,6 @@ class Hive
         return true;
     }
 
-    public function setHive(int $queens, int $workers, int $drones): void
-    {
-        for ($i = 0; $i < $queens; $i++) {
-            $this->hiveArray[0] = new QueenBee(100, 8);
-        }
-        for ($i = $queens; $i < $workers + $queens; $i++) {
-            $this->hiveArray[$i] = new WorkerBee(70, 10);
-        }
-        for ($i = $queens + $workers; $i < $drones + $workers + $queens; $i++) {
-            $this->hiveArray[$i] = new DroneBee(50, 12);
-        }
-    }
-
     public function getHive(): array
     {
         return $this->hiveArray;
@@ -74,12 +77,12 @@ class Hive
         return $array;
     }
 
-    public function hitRandBee()
+    public function hitRandBee(): bool
     {
         if (!empty($this->beesAlive())) {
             $index = array_rand($this->beesAlive(), 1);
-            $this->hiveArray[$index]->reduceLife();
+            return $this->hiveArray[$index]->reduceLife();
         }
-        $array = $this->beesAlive();
+        return false;
     }
 }

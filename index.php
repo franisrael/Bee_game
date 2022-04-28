@@ -22,9 +22,7 @@ if (isset($_SESSION['beeArray'])) {
         'drones' => 8
     ]);
 
-    $hive = new Hive();
-
-    $hive->setHive(...BEES);
+    $hive = new Hive(...BEES);
 }
 
 $beeArray = $hive->getHive();
