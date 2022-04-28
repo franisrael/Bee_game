@@ -1,0 +1,15 @@
+{
+    "name": "francisco/bee",
+    "autoload": {
+        "psr-4": {
+            "Bee\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "francisco",
+            "email": "franisrael@gmail.com"
+        }
+    ],
+    "require": {}
+}
