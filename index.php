@@ -17,9 +17,9 @@ if (isset($_SESSION['beeArray'])) {
     }
 } else {
     define('BEES', [
-        'queens' => 1,
-        'workers' => 5,
-        'drones' => 8
+        'queens' => ['qty' => 1, 'life' => 100, 'hit' => 8],
+        'workers' => ['qty' => 5, 'life' => 70, 'hit' => 10],
+        'drones' => ['qty' => 8, 'life' => 50, 'hit' => 12]
     ]);
 
     $hive = new Hive(...BEES);

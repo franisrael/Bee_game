@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Bee;
 
@@ -12,16 +12,16 @@ class Hive
 {
     protected array $hiveArray = [];
 
-    public function __construct(int $queens, int $workers, int $drones)
+    public function __construct(array $queens, array $workers, array $drones)
     {
-        for ($i = 0; $i < $queens; $i++) {
-            $this->hiveArray[0] = new QueenBee(100, 8);
+        for ($i = 0; $i < $queens['qty']; $i++) {
+            $this->hiveArray[0] = new QueenBee($queens['life'], $queens['hit']);
         }
-        for ($i = $queens; $i < $workers + $queens; $i++) {
-            $this->hiveArray[$i] = new WorkerBee(70, 10);
+        for ($i = $queens['qty']; $i < $workers['qty'] + $queens['qty']; $i++) {
+            $this->hiveArray[$i] = new WorkerBee($workers['life'], $workers['hit']);
         }
-        for ($i = $queens + $workers; $i < $drones + $workers + $queens; $i++) {
-            $this->hiveArray[$i] = new DroneBee(50, 12);
+        for ($i = $queens['qty'] + $workers['qty']; $i < $drones['qty'] + $workers['qty'] + $queens['qty']; $i++) {
+            $this->hiveArray[$i] = new DroneBee($drones['life'], $drones['hit']);
         }
     }
 
